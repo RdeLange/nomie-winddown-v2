@@ -3,6 +3,7 @@
   import { DEFAULT_ITEMS, addItem, allDone, dayKey, doneCount, removeItem, ticksFor, toggle, type Item, type Ticked } from './checklist';
   import { paletteFrom, type Palette } from './palette';
   import { offerTracker } from './tracker-offer';
+  import { onPrefsChange } from './prefs-live';
 
   let plugin: any;
   let view = $state<'modal' | 'widget'>('modal');
@@ -75,7 +76,8 @@
       addToMoreMenu: true,
       addToWidgets: true,
     });
-    plugin.onRegistered(async () => {
+    onPrefsChange(plugin, () => applyNomieValues());
+  plugin.onRegistered(async () => {
       applyNomieValues();
       await load();
     });
