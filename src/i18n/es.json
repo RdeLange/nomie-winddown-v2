@@ -1,0 +1,21 @@
+{
+ "title": "Relajarse",
+ "line": "{count} de {total} hechos esta noche · {nights} {unit} completadas",
+ "nightOne": "noche",
+ "nightMany": "noches",
+ "nightsShort": "{n} {unit}",
+ "allDoneTonight": "Esta noche está todo hecho.",
+ "wholeDone": "Lista completa. Buenas noches.",
+ "removeAria": "Quitar {item}",
+ "addPlaceholder": "Añadir un paso",
+ "add": "Añadir",
+ "restart": "Empezar la lista de nuevo",
+ "itemScreens": "Aparta las pantallas",
+ "itemTidy": "Ordena una cosa",
+ "itemTomorrow": "Escribe el primer paso de mañana",
+ "itemTeeth": "Lávate los dientes",
+ "itemBreathe": "Tres respiraciones lentas",
+ "trackerLabel": "Sueño",
+ "trackerQ": "¿Añadir el rastreador {label}?",
+ "trackerBody": "Este plugin escribe #{tag} en tu línea de tiempo. ¿Añadir ahora el rastreador, para que tenga su propio nombre, emoji y color?"
+}

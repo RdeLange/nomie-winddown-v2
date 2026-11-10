@@ -1,0 +1,21 @@
+{
+ "title": "Wind-down",
+ "line": "{count} of {total} done tonight · {nights} {unit} completed",
+ "nightOne": "night",
+ "nightMany": "nights",
+ "nightsShort": "{n} {unit}",
+ "allDoneTonight": "All done for tonight.",
+ "wholeDone": "Whole list done. Good night.",
+ "removeAria": "Remove {item}",
+ "addPlaceholder": "Add a step",
+ "add": "Add",
+ "restart": "Start the list again",
+ "itemScreens": "Screens away",
+ "itemTidy": "Tidy one thing",
+ "itemTomorrow": "Write tomorrow's first step",
+ "itemTeeth": "Brush teeth",
+ "itemBreathe": "Three slow breaths",
+ "trackerLabel": "Sleep",
+ "trackerQ": "Add the {label} tracker?",
+ "trackerBody": "This plugin writes #{tag} into your timeline. Add the tracker now, so it has its own name, emoji and colour?"
+}

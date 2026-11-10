@@ -1,17 +1,22 @@
 // The wind-down checklist as plain rules, so they can be tested without the app.
-export type Item = { id: string; text: string };
+import { t, type Key } from './i18n/index.svelte';
+
+// A step has its text, or the key of its translated text (the built-in steps). The key keeps the language at read time.
+export type Item = { id: string; text?: string; textKey?: Key };
 export type Ticked = Record<string, boolean>;
 
 export const DEFAULT_ITEMS: Item[] = [
-  { id: 'screens', text: 'Screens away' },
-  { id: 'tidy', text: 'Tidy one thing' },
-  { id: 'tomorrow', text: "Write tomorrow's first step" },
-  { id: 'teeth', text: 'Brush teeth' },
-  { id: 'breathe', text: 'Three slow breaths' },
+  { id: 'screens', textKey: 'itemScreens' },
+  { id: 'tidy', textKey: 'itemTidy' },
+  { id: 'tomorrow', textKey: 'itemTomorrow' },
+  { id: 'teeth', textKey: 'itemTeeth' },
+  { id: 'breathe', textKey: 'itemBreathe' },
 ];
 
 // A day key such as 2026-10-24, in local time
 export const dayKey = (date: Date): string => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+export const itemText = (item: Item): string => (item.textKey ? t(item.textKey) : item.text ?? '');
 
 export const doneCount = (items: Item[], ticked: Ticked): number => items.filter((i) => ticked[i.id]).length;
 

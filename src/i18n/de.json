@@ -1,0 +1,21 @@
+{
+ "title": "Abendroutine",
+ "line": "{count} von {total} heute Abend erledigt · {nights} {unit} abgeschlossen",
+ "nightOne": "Nacht",
+ "nightMany": "Nächte",
+ "nightsShort": "{n} {unit}",
+ "allDoneTonight": "Heute Abend ist alles erledigt.",
+ "wholeDone": "Die ganze Liste ist erledigt. Gute Nacht.",
+ "removeAria": "{item} entfernen",
+ "addPlaceholder": "Einen Schritt hinzufügen",
+ "add": "Hinzufügen",
+ "restart": "Liste neu beginnen",
+ "itemScreens": "Bildschirme weglegen",
+ "itemTidy": "Eine Sache aufräumen",
+ "itemTomorrow": "Den ersten Schritt für morgen notieren",
+ "itemTeeth": "Zähne putzen",
+ "itemBreathe": "Drei langsame Atemzüge",
+ "trackerLabel": "Schlaf",
+ "trackerQ": "Den Tracker {label} hinzufügen?",
+ "trackerBody": "Dieses Plugin schreibt #{tag} in deine Timeline. Soll der Tracker jetzt hinzugefügt werden, damit er eigenen Namen, Emoji und Farbe hat?"
+}

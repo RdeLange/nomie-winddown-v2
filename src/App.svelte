@@ -1,13 +1,16 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { DEFAULT_ITEMS, addItem, allDone, dayKey, doneCount, removeItem, ticksFor, toggle, type Item, type Ticked } from './checklist';
-  import { paletteFrom, type Palette } from './palette';
+  import { DEFAULT_ITEMS, addItem, allDone, dayKey, doneCount, itemText, removeItem, ticksFor, toggle, type Item, type Ticked } from './checklist';
+  import { t, setLanguage, currentLanguage } from './i18n/index.svelte';
+  import { paletteFrom, glassFrom, tintTextFrom, type Palette, type Glass } from './palette';
   import { offerTracker } from './tracker-offer';
   import { onPrefsChange } from './prefs-live';
 
   let plugin: any;
   let view = $state<'modal' | 'widget'>('modal');
   let palette = $state<Palette>(paletteFrom(undefined));
+  let glass = $state<Glass>(glassFrom(undefined));
+  let tintText = $state(tintTextFrom(undefined));
   let scale = $state(1);
   let items = $state<Item[]>(DEFAULT_ITEMS);
   let ticked = $state<Ticked>({});
@@ -22,6 +25,9 @@
   const applyNomieValues = () => {
     if (!plugin?.prefs) return;
     palette = paletteFrom(plugin.prefs);
+    setLanguage(plugin.prefs?.language);
+    glass = glassFrom(plugin.prefs);
+    tintText = tintTextFrom(plugin.prefs);
     scale = plugin.prefs.fontScale || 1;
   };
 
@@ -89,58 +95,62 @@
     plugin.onUIOpened(async () => {
       view = 'modal';
       applyNomieValues();
-      offerTracker(plugin, { tag: 'sleep', label: 'Sleep', emoji: '🌙', color: '#5856D6' });
+      offerTracker(plugin, { tag: 'sleep', label: t('trackerLabel'), emoji: '🌙', color: '#5856D6' });
       if (!ready) await load();
     });
   });
 </script>
 
-<div class="card" class:widget={view === 'widget'} style="--page: {palette.page}; --card: {palette.card}; --text: {palette.text}; --muted: {palette.textSecondary}; --line: {palette.separator}; --fill: {palette.fill}; --tint: {palette.tint}; --on-tint: {palette.onTint}; --good: {palette.good}; --good-soft: {palette.goodSoft}; --scale: {scale};">
+<div class="card" class:widget={view === 'widget'} style="--page: {palette.page}; --card: {palette.card}; --text: {palette.text}; --muted: {palette.textSecondary}; --line: {palette.separator}; --fill: {palette.fill}; --tint: {palette.tint}; --on-tint: {palette.onTint}; --good: {palette.good}; --good-soft: {palette.goodSoft}; --tint-text: {tintText}; --glass-fill: {glass.fill}; --glass-edge: {glass.edge}; --glass-blur: {glass.blur}; --glass-shadow: {glass.shadow}; --scale: {scale};">
   {#if view === 'widget'}
     <div class="head">
       <span aria-hidden="true">🌙</span>
       <span>{count} / {items.length}</span>
-      <span class="meta">{nights} nights</span>
+      <span class="meta">{t('nightsShort', { n: nights, unit: nights === 1 ? t('nightOne') : t('nightMany') })}</span>
     </div>
     <ul class="compact">
       {#each items.filter((i) => !ticked[i.id]).slice(0, 3) as item (item.id)}
-        <li><button class="tick" onclick={() => tap(item.id)}>○ {item.text}</button></li>
+        <li><button class="tick" onclick={() => tap(item.id)}>○ {itemText(item)}</button></li>
       {:else}
-        <li class="done">All done for tonight.</li>
+        <li class="done">{t('allDoneTonight')}</li>
       {/each}
     </ul>
   {:else}
-    <h1>Wind-down</h1>
-    <p class="muted">{count} of {items.length} done tonight · {nights} {nights === 1 ? 'night' : 'nights'} completed</p>
+    <header class="top"><h1>{t('title')}</h1></header>
+    <p class="muted">{t('line', { count, total: items.length, nights, unit: nights === 1 ? t('nightOne') : t('nightMany') })}</p>
 
     <section class="panel list">
       {#each items as item (item.id)}
         <div class="item">
           <button class="tick" class:on={ticked[item.id]} onclick={() => tap(item.id)} aria-pressed={!!ticked[item.id]}>
             <span class="box">{ticked[item.id] ? '✓' : ''}</span>
-            <span class:struck={ticked[item.id]}>{item.text}</span>
+            <span class:struck={ticked[item.id]}>{itemText(item)}</span>
           </button>
-          <button class="remove" aria-label="Remove {item.text}" onclick={() => remove(item.id)}>×</button>
+          <button class="remove" aria-label={t('removeAria', { item: itemText(item) })} onclick={() => remove(item.id)}>×</button>
         </div>
       {/each}
     </section>
 
     {#if complete}
-      <section class="panel done-banner">Whole list done. Good night.</section>
+      <section class="panel done-banner">{t('wholeDone')}</section>
     {/if}
 
     <section class="panel add">
-      <input class="input" placeholder="Add a step" bind:value={newItem} onkeydown={(e) => e.key === 'Enter' && add()} />
-      <button class="primary" onclick={add}>Add</button>
+      <input class="input" placeholder={t('addPlaceholder')} bind:value={newItem} onkeydown={(e) => e.key === 'Enter' && add()} />
+      <button class="primary" onclick={add}>{t('add')}</button>
     </section>
-    <button class="ghost" onclick={resetDay}>Start the list again</button>
+    <button class="ghost" onclick={resetDay}>{t('restart')}</button>
   {/if}
 </div>
 
 <style>
+  /* the app's text: its iOS font stack, with the app's smoothing */
+  :global(body) { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased; --ios-font-rounded: ui-rounded, -apple-system, system-ui, sans-serif; }
+  /* the header is a Liquid Glass bar (D-glass): it stays at the top and the content scrolls under it */
+  .top { position: sticky; top: 0; z-index: 2; margin: -16px -16px 8px; padding: 16px 16px 10px; background: var(--glass-fill); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); border-bottom: 1px solid var(--glass-edge); }
   .card { box-sizing: border-box; min-height: 100vh; padding: 16px; background: var(--page); color: var(--text); font-size: calc(16px * var(--scale)); line-height: 1.4; }
   .card.widget { min-height: 0; padding: 12px; font-size: calc(14px * var(--scale)); }
-  h1 { margin: 0 0 2px; font-size: calc(26px * var(--scale)); font-weight: 700; }
+  h1 { margin: 0; font-size: calc(26px * var(--scale)); font-weight: 700; }
   .muted { margin: 4px 0; color: var(--muted); }
   .panel { padding: 8px 16px; border-radius: 16px; background: var(--card); margin-bottom: 12px; }
   .head { display: flex; align-items: center; gap: 8px; font-weight: 600; }

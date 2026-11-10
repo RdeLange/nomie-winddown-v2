@@ -1,0 +1,21 @@
+{
+ "title": "Afbouwen",
+ "line": "{count} van {total} vanavond klaar · {nights} {unit} voltooid",
+ "nightOne": "nacht",
+ "nightMany": "nachten",
+ "nightsShort": "{n} {unit}",
+ "allDoneTonight": "Vanavond is alles klaar.",
+ "wholeDone": "De hele lijst is klaar. Goedenacht.",
+ "removeAria": "{item} verwijderen",
+ "addPlaceholder": "Een stap toevoegen",
+ "add": "Toevoegen",
+ "restart": "Lijst opnieuw beginnen",
+ "itemScreens": "Schermen weg",
+ "itemTidy": "Eén ding opruimen",
+ "itemTomorrow": "Schrijf de eerste stap voor morgen op",
+ "itemTeeth": "Tanden poetsen",
+ "itemBreathe": "Drie rustige ademhalingen",
+ "trackerLabel": "Slaap",
+ "trackerQ": "De tracker {label} toevoegen?",
+ "trackerBody": "Deze plugin schrijft #{tag} in je tijdlijn. De tracker nu toevoegen, zodat hij een eigen naam, emoji en kleur krijgt?"
+}

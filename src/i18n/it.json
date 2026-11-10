@@ -1,0 +1,21 @@
+{
+ "title": "Relax serale",
+ "line": "{count} di {total} fatti stasera · {nights} {unit} completate",
+ "nightOne": "notte",
+ "nightMany": "notti",
+ "nightsShort": "{n} {unit}",
+ "allDoneTonight": "Per stasera è tutto fatto.",
+ "wholeDone": "Lista completa. Buonanotte.",
+ "removeAria": "Togli {item}",
+ "addPlaceholder": "Aggiungi un passo",
+ "add": "Aggiungi",
+ "restart": "Ricomincia la lista",
+ "itemScreens": "Metti via gli schermi",
+ "itemTidy": "Riordina una cosa",
+ "itemTomorrow": "Scrivi il primo passo di domani",
+ "itemTeeth": "Lavati i denti",
+ "itemBreathe": "Tre respiri lenti",
+ "trackerLabel": "Sonno",
+ "trackerQ": "Aggiungere il tracker {label}?",
+ "trackerBody": "Questo plugin scrive #{tag} nella tua timeline. Aggiungere ora il tracker, così ha un nome, un emoji e un colore propri?"
+}
